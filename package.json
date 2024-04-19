@@ -1,0 +1,26 @@
+{
+  "name": "timer",
+  "version": "1.0.0",
+  "description": "Simple timer",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rom-melnyk/timer.git"
+  },
+  "keywords": [
+    "timer",
+    "ts",
+    "vue",
+    "html",
+    "css"
+  ],
+  "author": "Roman Melnyk <https://melnyk.site>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/rom-melnyk/timer/issues"
+  },
+  "homepage": "https://github.com/rom-melnyk/timer#readme"
+}
