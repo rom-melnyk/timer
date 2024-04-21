@@ -2,7 +2,7 @@
   <div class="timer-app">
     <div class="timer-container">
       <template v-if="state.state === 'Idle'">
-        <TimeInput />
+        <TimeInput v-model="hms" />
         <button
           class=""
           @click="startTimer"
@@ -41,36 +41,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted } from "vue"
+import { defineComponent, onMounted, onUnmounted, ref } from "vue"
 import TimeInput from "./TimeInput.vue"
 import ProgressRunning from "./ProgressRunning.vue"
 import ProgressDone from "./ProgressDone.vue"
-import { States } from "../fsm/types"
 import { state } from "../fsm/fsm"
-import { timer } from "../timer"
+import { HMS, timer } from "../timer"
 
 export default defineComponent({
   name: "TimerApp",
   components: { ProgressDone, ProgressRunning, TimeInput },
   setup() {
+    const hms = ref<HMS>({ h: 0, m: 0, s: 0 })
     const { isRunning } = timer
-    const buttonIcons: { [state in States]: string } = {
-      Idle: "✅▶️⏸️🔁",
-      Running: "||",
-      Done: "v",
-    }
 
     function startTimer() {
-      console.info(`startTimer`)
+      timer.start(hms.value)
+      state.value = state.value.update()
     }
     function pauseTimer() {
-      console.info(`pauseTimer`)
+      timer.pause()
     }
     function resumeTimer() {
-      console.info(`resumeTimer`)
+      timer.resume()
     }
     function resetTimer() {
-      console.info(`resetTimer`)
+      timer.reset()
+      state.value = state.value.update()
     }
 
     function listenToKeyboard(e: KeyboardEvent) {
@@ -85,8 +82,8 @@ export default defineComponent({
 
     return {
       state,
+      hms,
       isRunning,
-      buttonIcons,
       startTimer,
       pauseTimer,
       resumeTimer,

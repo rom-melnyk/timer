@@ -1,11 +1,12 @@
 ﻿import { computed, ref } from "vue"
 
-type HMS = { h: string, m: string, s: string }
+export type HMS = { h: number, m: number, s: number }
+export type HMSString = { h: string, m: string, s: string }
 
-function toHMS(seconds: number): HMS {
-  const hours = seconds % 3600
+function toHMSString(seconds: number): HMSString {
+  const hours = Math.floor(seconds / 3600)
   seconds -= hours * 3600
-  const minutes = seconds % 60
+  const minutes = Math.floor(seconds / 60)
   seconds -= minutes * 60
 
   return {
@@ -18,15 +19,15 @@ function toHMS(seconds: number): HMS {
 class Timer {
   private _timerId: NodeJS.Timer | null = null
   private _duration = 0
-  private _durationHms: HMS | null = null
+  private _durationString: HMS | null = null
 
   readonly seconds = ref(0)
   readonly isRunning = computed(() => this._timerId != null)
   readonly progress = computed(() =>
     Math.floor((this.seconds.value / this._duration) * 100 * 100) / 100
   )
-  readonly hms = computed<HMS>(() => toHMS(this.seconds.value))
-  get durationHms() { return this._durationHms }
+  readonly hmsString = computed<HMSString>(() => toHMSString(this.seconds.value))
+  get durationString() { return this._durationString }
 
   constructor() {
     this.start = this.start.bind(this)
@@ -36,17 +37,17 @@ class Timer {
     this._tick = this._tick.bind(this)
   }
 
-  start(timeString: HMS) {
+  start({ h, m, s }: HMS) {
     if (this._timerId) return
 
-    this._duration = (timeString.h ?? 0) * 3600
-      + (timeString.m ?? 0) * 60
-      + (timeString.s ?? 0)
-    this.seconds.value = this._duration
+    this._duration = (h ?? 0) * 3600
+      + (m ?? 0) * 60
+      + (s ?? 0)
 
     if (this._duration <= 0) return
 
-    this.durationHms = timeString
+    this.seconds.value = this._duration
+    this._durationString = toHMSString(this._duration)
     this._timerId = setInterval(this._tick, 1000)
   }
 

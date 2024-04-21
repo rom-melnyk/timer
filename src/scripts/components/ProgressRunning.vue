@@ -14,9 +14,9 @@ import { timer } from "../timer"
 export default defineComponent({
   name: "ProgressRunning",
   setup() {
-    const { hms, seconds, progress } = timer
+    const { hmsString, seconds, progress } = timer
     const time = computed(() =>
-      `${hms.value.h}:${hms.value.m}${seconds.value % 2 === 0 ? ":" : "."}${hms.value.s}`
+      `${hmsString.value.h}:${hmsString.value.m}${seconds.value % 2 === 0 ? ":" : "."}${hmsString.value.s}`
     )
     return { time, progress }
   }

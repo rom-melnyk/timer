@@ -13,9 +13,9 @@ import { timer } from "../timer"
 export default defineComponent({
   name: "ProgressDone",
   setup() {
-    const { durationHms } = timer
+    const { durationString } = timer
     const elapsedMsg =
-      `${durationHms.h}:${durationHms.m}:${durationHms.s} elapsed`
+      `${durationString.h}:${durationString.m}:${durationString.s} elapsed`
     return { elapsedMsg }
   }
 })
