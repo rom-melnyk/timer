@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="time-input">
-    <div class="hms-input">
+    <div class="hms-input whitespace-nowrap text-center">
       <input type="number" min="0" maxlength="99" v-model="hms.h">
       <span class="separator">:</span>
       <input type="number" min="0" maxlength="59" v-model="hms.m">
@@ -66,11 +66,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.hms-input input {
-  width: 25vw;
-  height: 25vw;
-  padding: 1rem;
-  font-size: 10vw;
-  text-align: center;
+.hms-input {
+  * {
+    @apply inline align-middle text-center;
+  }
+
+  input {
+    @apply w-[20vw] h-[20vw] p-4 m-0 text-[8vw];
+    @apply bg-transparent text-primary-light;
+    @apply border rounded-xl border-transparent hover:border-primary-light active:border-primary-light focus:border-primary-light;
+  }
+
+  .separator {
+    @apply text-[4vw] px-[2vw];
+  }
 }
 </style>

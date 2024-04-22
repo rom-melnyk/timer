@@ -1,42 +1,32 @@
 ﻿<template>
-  <div class="timer-app">
-    <div class="timer-container">
+  <div class="timer-app h-full flex flex-col items-stretch">
+    <div class="timer-container flex-1 flex flex-row items-center px-8">
       <template v-if="state.state === 'Idle'">
         <TimeInput v-model="hms" />
-        <button
-          class=""
-          @click="startTimer"
-        >▶️</button>
+        <div class="controls">
+          <button @click="startTimer">▶️</button>
+        </div>
       </template>
 
       <template v-if="state.state === 'Running'">
         <ProgressRunning />
-        <div>
-          <button
-            v-if="isRunning"
-            class=""
-            @click="pauseTimer"
-          >⏸️</button>
-          <button
-            v-if="!isRunning"
-            class=""
-            @click="resumeTimer"
-          >▶️</button>
+        <div class="controls">
+          <button v-if="isRunning" @click="pauseTimer">⏸️</button>
+          <button v-if="!isRunning" @click="resumeTimer">▶️</button>
           <!-- TODO 🔁 -->
         </div>
       </template>
 
       <template v-if="state.state === 'Done'">
         <ProgressDone />
-        <div>
-          <button
-            class=""
-            @click="resetTimer"
-          >✅</button>
+        <div class="controls">
+          <button @click="resetTimer">✅</button>
           <!-- TODO 🔁 -->
         </div>
       </template>
     </div>
+
+    <AppFooter />
   </div>
 </template>
 
@@ -45,12 +35,13 @@ import { defineComponent, onMounted, onUnmounted, ref } from "vue"
 import TimeInput from "./TimeInput.vue"
 import ProgressRunning from "./ProgressRunning.vue"
 import ProgressDone from "./ProgressDone.vue"
+import AppFooter from "./AppFooter.vue"
 import { type HMS, timer } from "../timer/timer"
 import { state } from "../fsm/fsm"
 
 export default defineComponent({
   name: "TimerApp",
-  components: { ProgressDone, ProgressRunning, TimeInput },
+  components: { AppFooter, ProgressDone, ProgressRunning, TimeInput },
   setup() {
     const hms = ref<HMS>({ h: 0, m: 0, s: 0 })
     const { isRunning } = timer
@@ -94,5 +85,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.timer-container {
+  & > *:first-child {
+    @apply flex-1 mr-8;
+  }
 
+  & > .controls {
+    @apply w-[20vw];
+  }
+}
 </style>
