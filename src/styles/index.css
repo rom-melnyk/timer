@@ -1,10 +1,8 @@
-* {
-  box-sizing: border-box;
-}
+@import "./tailwind.css"; /* Must be imported 1st; otherwise `@apply` won't work in other files! */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap");
 
 html, body {
-  font-size: 18px;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
+  @apply m-0 p-0 h-full;
+  @apply font-sans-serif text-[18px] lg:text-[22px] leading-none;
+  @apply bg-surface-light dark:bg-surface-dark text-on-surface-light dark:text-on-surface-dark;
 }
