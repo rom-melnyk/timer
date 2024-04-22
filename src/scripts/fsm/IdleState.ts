@@ -1,4 +1,4 @@
-﻿import { IState, States } from "./types"
+﻿import type { IState, States } from "./types"
 import { RunningState } from "./RunningState"
 
 export class IdleState implements IState {

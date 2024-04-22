@@ -2,9 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "/*": ["./src/*"]
-    },
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

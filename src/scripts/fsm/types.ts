@@ -1,6 +1,8 @@
-﻿export type States = "Idle" | "Running" | "Done"
+﻿import type { Ref } from "vue"
+
+export type States = "Idle" | "Running" | "Done"
 
 export interface IState {
   state: States
-  update(): IState
+  update(context: { state?: Ref<IState>, /* timer: Timer */ } = {}): IState
 }

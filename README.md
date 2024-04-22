@@ -1,11 +1,14 @@
 # A simple Timer app
 
+
+
 ## Development
 
-```bash
-npm i
-npm start
-```
+1. `npm install`
+2. `npm start`
+1. Open http://localhost:8080/ in browser.
+
+
 
 ## Production
 

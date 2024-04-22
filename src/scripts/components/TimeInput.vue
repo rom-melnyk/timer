@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from "vue"
-import { HMS } from "../timer"
+import { type HMS } from "../timer/timer"
 
 export default defineComponent({
   name: "TimeInput",

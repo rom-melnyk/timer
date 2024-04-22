@@ -45,8 +45,8 @@ import { defineComponent, onMounted, onUnmounted, ref } from "vue"
 import TimeInput from "./TimeInput.vue"
 import ProgressRunning from "./ProgressRunning.vue"
 import ProgressDone from "./ProgressDone.vue"
+import { type HMS, timer } from "../timer/timer"
 import { state } from "../fsm/fsm"
-import { HMS, timer } from "../timer"
 
 export default defineComponent({
   name: "TimerApp",
@@ -56,7 +56,7 @@ export default defineComponent({
     const { isRunning } = timer
 
     function startTimer() {
-      timer.start(hms.value)
+      timer.start(hms.value, () => state.value = state.value.update())
       state.value = state.value.update()
     }
     function pauseTimer() {
