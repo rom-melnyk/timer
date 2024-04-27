@@ -1,0 +1,13 @@
+﻿.time, .separator {
+  @apply inline-block text-center align-middle font-bold;
+}
+
+.time {
+  @apply w-[1.5em];
+  @apply text-on-accent-light dark:text-on-accent-dark;
+}
+
+.separator {
+  @apply min-w-4 text-[calc(var(--input-font-size)*.5)];
+  @apply text-on-accent-light/50 dark:text-on-accent-dark/50;
+}

@@ -1,0 +1,36 @@
+﻿input {
+  @apply inline-block outline-0 cursor-pointer transition-colors;
+  @apply overflow-hidden border-2 rounded-xl;
+
+  @apply h-[var(--input-size)] aspect-square;
+  /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
+  @apply leading-[var(--input-size)] text-[calc(var(--input-font-size)*1)] text-center font-bold;
+
+  @apply bg-transparent;
+  @apply text-accent-light dark:text-accent-dark;
+  @apply border-accent-light dark:border-accent-dark;
+
+  &:hover, &:active, &:focus {
+    @apply bg-surface-high-light dark:bg-surface-high-dark;
+    @apply text-accent-high-light dark:text-accent-high-dark;
+    @apply border-accent-high-light dark:border-accent-high-dark;
+  }
+}
+
+button {
+  @apply inline-block outline-0 border-0 bg-transparent cursor-pointer transition-opacity;
+  @apply text-[calc(var(--input-size)*1)] leading-none;
+
+  &:hover, &:active, &:focus {
+    @apply opacity-80;
+  }
+}
+
+a {
+  @apply outline-0 cursor-pointer transition-colors;
+  @apply text-accent-high-light dark:text-accent-high-dark;
+
+  &:hover, &:active, &:focus {
+    @apply text-accent-light dark:text-accent-dark;
+  }
+}

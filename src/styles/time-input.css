@@ -1,0 +1,5 @@
+﻿.hms-input {
+  * {
+    @apply align-middle;
+  }
+}

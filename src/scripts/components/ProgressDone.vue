@@ -1,5 +1,13 @@
 ﻿<template>
-  <div class="progress-container big-text-container">{{ elapsedMsg }}</div>
+  <div class="progress-done">
+    <span class="time">{{ time.h }}</span>
+    <span class="separator">:</span>
+    <span class="time">{{ time.m }}</span>
+    <span class="separator">:</span>
+    <span class="time">{{ time.s }}</span>
+
+    <span class="elapsed">elapsed</span>
+  </div>
 </template>
 
 <script lang="ts">
@@ -10,9 +18,7 @@ import { formatHms } from "../timer/utils"
 export default defineComponent({
   name: "ProgressDone",
   setup() {
-    const { h, m, s } = formatHms(timer.durationHms)
-    const elapsedMsg = `${h}:${m}:${s} elapsed`
-    return { elapsedMsg }
+    return { time: formatHms(timer.durationHms) }
   }
 })
 </script>

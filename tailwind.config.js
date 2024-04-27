@@ -14,7 +14,7 @@ module.exports = {
         "light": "hsl(195, 80%, 75%)",
         "dark": "#54d7f3",
         high: {
-          "light": "hsl(195, 90%, 65%)",
+          "light": "hsl(195, 80%, 55%)",
           "dark": "#001f25",
         },
       },
@@ -22,7 +22,7 @@ module.exports = {
         "light": "hsl(195, 3%, 100%)",
         "dark": "#001f25",
         high: {
-          "light": "hsl(195, 30%, 95%)",
+          "light": "hsl(195, 50%, 95%)",
           "dark": "#001f25",
         },
       },
