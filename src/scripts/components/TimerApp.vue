@@ -1,18 +1,18 @@
 ﻿<template>
   <div class="timer-app h-full flex flex-col items-stretch">
-    <div class="timer-container flex-1 flex flex-row items-center px-8">
+    <main class="timer-container flex-1 flex flex-row flex-wrap justify-center items-center px-8">
       <template v-if="state.state === 'Idle'">
         <TimeInput v-model="hms" />
         <div class="controls">
-          <button @click="startTimer">▶️</button>
+          <button @click="startTimer" class="with-border big-text-container">▶️</button>
         </div>
       </template>
 
       <template v-if="state.state === 'Running'">
         <ProgressRunning />
         <div class="controls">
-          <button v-if="isRunning" @click="pauseTimer">⏸️</button>
-          <button v-if="!isRunning" @click="resumeTimer">▶️</button>
+          <button v-if="isRunning" @click="pauseTimer" class="with-border big-text-container">⏸️</button>
+          <button v-if="!isRunning" @click="resumeTimer" class="with-border big-text-container">▶️</button>
           <!-- TODO 🔁 -->
         </div>
       </template>
@@ -20,11 +20,11 @@
       <template v-if="state.state === 'Done'">
         <ProgressDone />
         <div class="controls">
-          <button @click="resetTimer">✅</button>
+          <button @click="resetTimer" class="with-border big-text-container">✅</button>
           <!-- TODO 🔁 -->
         </div>
       </template>
-    </div>
+    </main>
 
     <AppFooter />
   </div>
@@ -87,11 +87,14 @@ export default defineComponent({
 <style scoped>
 .timer-container {
   & > *:first-child {
-    @apply flex-1 mr-8;
+    @apply mr-8 mb-8;
   }
 
   & > .controls {
-    @apply w-[20vw];
+    @apply mb-8;
+  }
+  button {
+    @apply aspect-square;
   }
 }
 </style>

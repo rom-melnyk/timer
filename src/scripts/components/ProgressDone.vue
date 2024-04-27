@@ -1,7 +1,5 @@
 ﻿<template>
-  <div class="progress-container">
-    <div class="progress-done h-full">{{ elapsedMsg }}</div>
-  </div>
+  <div class="progress-container big-text-container">{{ elapsedMsg }}</div>
 </template>
 
 <script lang="ts">

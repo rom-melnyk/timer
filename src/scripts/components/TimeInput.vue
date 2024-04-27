@@ -1,11 +1,11 @@
 ﻿<template>
   <div class="time-input">
     <div class="hms-input whitespace-nowrap text-center">
-      <input type="number" min="0" maxlength="99" v-model="hms.h">
+      <input type="number" min="0" maxlength="99" v-model="hms.h" class="with-border big-text-container">
       <span class="separator">:</span>
-      <input type="number" min="0" maxlength="59" v-model="hms.m">
+      <input type="number" min="0" maxlength="59" v-model="hms.m" class="with-border big-text-container">
       <span class="separator">:</span>
-      <input type="number" min="0" maxlength="59" v-model="hms.s">
+      <input type="number" min="0" maxlength="59" v-model="hms.s" class="with-border big-text-container">
     </div>
     <div class="previous-values">
       <span v-for="t in previousValues">t</span>
@@ -68,17 +68,17 @@ export default defineComponent({
 <style scoped>
 .hms-input {
   * {
-    @apply inline align-middle text-center;
+    @apply align-middle font-bold;
   }
 
   input {
-    @apply w-[20vw] h-[20vw] p-4 m-0 text-[8vw];
-    @apply bg-transparent text-primary-light;
-    @apply border rounded-xl border-transparent hover:border-primary-light active:border-primary-light focus:border-primary-light;
+    @apply aspect-square;
   }
 
   .separator {
-    @apply text-[4vw] px-[2vw];
+    /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
+    @apply text-[calc(var(--input-font-size)*.75)] px-[1em];
+    @apply text-accent-light dark:text-accent-dark;
   }
 }
 </style>

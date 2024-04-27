@@ -10,51 +10,43 @@ module.exports = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      primary: {
-        "light": "#006879",
+      accent: {
+        "light": "hsl(195, 80%, 75%)",
         "dark": "#54d7f3",
-      },
-      secondary: {
-        "light": "#415aa9",
-        "dark": "#b5c4ff",
-      },
-      tertiary: {
-        "light": "#8d4f00",
-        "dark": "#ffb877",
-      },
-      error: {
-        "light": "#ba1a1a",
-        "dark": "#ffb4ab",
+        high: {
+          "light": "hsl(195, 90%, 65%)",
+          "dark": "#001f25",
+        },
       },
       surface: {
-        "light": "#f8fdff",
+        "light": "hsl(195, 3%, 100%)",
         "dark": "#001f25",
+        high: {
+          "light": "hsl(195, 30%, 95%)",
+          "dark": "#001f25",
+        },
       },
       on: {
-        primary: {
-          "light": "#ffffff",
+        accent: {
+          "light": "hsl(195, 85%, 10%)",
           "dark": "#003640",
-        },
-        secondary: {
-          "light": "#ffffff",
-          "dark": "#052978",
-        },
-        tertiary: {
-          "light": "#ffffff",
-          "dark": "#4b2700",
-        },
-        error: {
-          "light": "#ffffff",
-          "dark": "#690005",
+          high: {
+            "light": "hsl(195, 90%, 15%)",
+            "dark": "#001f25",
+          },
         },
         surface: {
-          "light": "#001f25",
+          "light": "hsl(195, 65%, 7%)",
           "dark": "#a6eeff",
+          high: {
+            "light": "hsl(195, 85%, 10%)",
+            "dark": "#001f25",
+          },
         },
       },
     },
     fontFamily: {
-      "sans-serif": "'Fira Sans', sans-serif",
+      "sans-serif": "'Fira Sans', Ubuntu, sans-serif",
     },
     extend: {},
   },
