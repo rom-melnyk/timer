@@ -4,17 +4,17 @@
       <template v-if="state === 'Idle'">
         <TimeInput v-model="hms" />
         <div class="controls">
-          <button @click="startTimer" :disabled="!canStart">⯈</button>
+          <button @click="startTimer" :disabled="!canStart"><i class="icon-play"></i></button>
         </div>
       </template>
 
       <template v-if="state === 'Running' || state === 'Paused'">
         <ProgressRunning />
         <div class="controls">
-          <button v-if="state === 'Running'" @click="pauseTimer">⏸</button>
+          <button v-if="state === 'Running'" @click="pauseTimer"><i class="icon-pause"></i></button>
           <template v-if="state === 'Paused'">
-            <button @click="resumeTimer" class="mr-8">⯈</button>
-            <button @click="resetTimer">⏹</button>
+            <button @click="resumeTimer" class="mr-8"><i class="icon-play"></i></button>
+            <button @click="resetTimer"><i class="icon-stop"></i></button>
           </template>
         </div>
       </template>
@@ -22,7 +22,7 @@
       <template v-if="state === 'Done'">
         <ProgressDone />
         <div class="controls">
-          <button @click="resetTimer">✔</button>
+          <button @click="resetTimer"><i class="icon-ok"></i></button>
           <!-- TODO 🔁 -->
         </div>
       </template>
