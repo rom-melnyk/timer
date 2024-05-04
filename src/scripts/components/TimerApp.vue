@@ -1,26 +1,28 @@
 ﻿<template>
   <div class="timer-app h-full flex flex-col items-stretch">
     <main class="timer-container flex-1 flex flex-col justify-center items-center px-8">
-      <template v-if="state.state === 'Idle'">
+      <template v-if="state === 'Idle'">
         <TimeInput v-model="hms" />
         <div class="controls">
-          <button @click="startTimer">▶️</button>
+          <button @click="startTimer" :disabled="!canStart">⯈</button>
         </div>
       </template>
 
-      <template v-if="state.state === 'Running'">
+      <template v-if="state === 'Running' || state === 'Paused'">
         <ProgressRunning />
         <div class="controls">
-          <button v-if="isRunning" @click="pauseTimer">⏸️</button>
-          <button v-if="!isRunning" @click="resumeTimer">▶️</button>
-          <!-- TODO 🔁 -->
+          <button v-if="state === 'Running'" @click="pauseTimer">⏸</button>
+          <template v-if="state === 'Paused'">
+            <button @click="resumeTimer" class="mr-8">⯈</button>
+            <button @click="resetTimer">⏹</button>
+          </template>
         </div>
       </template>
 
-      <template v-if="state.state === 'Done'">
+      <template v-if="state === 'Done'">
         <ProgressDone />
         <div class="controls">
-          <button @click="resetTimer">✅</button>
+          <button @click="resetTimer">✔</button>
           <!-- TODO 🔁 -->
         </div>
       </template>
@@ -31,42 +33,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref } from "vue"
+import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from "vue"
 import TimeInput from "./TimeInput.vue"
 import ProgressRunning from "./ProgressRunning.vue"
 import ProgressDone from "./ProgressDone.vue"
 import AppFooter from "./AppFooter.vue"
 import { type HMS, timer } from "../timer/timer"
-import { state } from "../fsm/fsm"
+
+type States = "Idle" | "Running" | "Paused" | "Done"
 
 export default defineComponent({
   name: "TimerApp",
   components: { AppFooter, ProgressDone, ProgressRunning, TimeInput },
   setup() {
+    const state = ref<States>("Idle")
     const hms = ref<HMS>({ h: 0, m: 0, s: 0 })
-    const { isRunning } = timer
+
+    const canStart = computed(() => hms.value.h > 0 || hms.value.m > 0 || hms.value.s > 0)
 
     function startTimer() {
-      timer.start(hms.value, () => state.value = state.value.update())
-      state.value = state.value.update()
+      if (!canStart) return
+      timer.start(() => state.value = "Done")
+      state.value = "Running"
     }
     function pauseTimer() {
       timer.pause()
+      state.value = "Paused"
     }
     function resumeTimer() {
       timer.resume()
+      state.value = "Running"
     }
     function resetTimer() {
       timer.reset()
-      state.value = state.value.update()
+      state.value = "Idle"
     }
 
     function listenToKeyboard(e: KeyboardEvent) {
       // console.info(e)
-      // e.key === " "
-      // e.key.toLowerCase() === "enter"
-      // startTimer()
+      if (e.key !== " " && e.key.toLowerCase() !== "enter") return
+      switch (state.value) {
+        case "Idle": return startTimer()
+        case "Running": return pauseTimer()
+        case "Paused": return resumeTimer()
+        case "Done": return resetTimer()
+      }
     }
+
+    watch(hms, newHms => timer.set(newHms), { immediate: true })
 
     onMounted(() => window.addEventListener("keypress", listenToKeyboard))
     onUnmounted(() => window.removeEventListener("keypress", listenToKeyboard))
@@ -74,7 +88,7 @@ export default defineComponent({
     return {
       state,
       hms,
-      isRunning,
+      canStart,
       startTimer,
       pauseTimer,
       resumeTimer,

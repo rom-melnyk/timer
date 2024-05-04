@@ -17,7 +17,7 @@ import { formatHms, secondsToHms } from "../timer/utils"
 export default defineComponent({
   name: "ProgressRunning",
   setup() {
-    const time = computed(() => formatHms(secondsToHms(timer.seconds.value)))
+    const time = computed(() => formatHms(secondsToHms(timer.remainedSeconds.value)))
     const progress = computed(() => Math.floor((timer.progress.value) * 100 * 100) / 100)
     return { time, progress }
   }

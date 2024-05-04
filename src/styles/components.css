@@ -1,10 +1,16 @@
-﻿input {
-  @apply inline-block outline-0 cursor-pointer transition-colors;
+﻿input, button {
+  @apply inline-block outline-0 transition-colors;
   @apply overflow-hidden border-2 rounded-xl;
 
   @apply h-[var(--input-size)] aspect-square;
+  @apply leading-[var(--input-size)] text-center font-bold;
+}
+
+input {
+  @apply cursor-pointer;
+
   /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
-  @apply leading-[var(--input-size)] text-[calc(var(--input-font-size)*1)] text-center font-bold;
+  @apply text-[calc(var(--input-font-size)*1)] font-bold;
 
   @apply bg-transparent;
   @apply text-accent-light dark:text-accent-dark;
@@ -18,16 +24,30 @@
 }
 
 button {
-  @apply inline-block outline-0 border-0 bg-transparent cursor-pointer transition-opacity;
-  @apply text-[calc(var(--input-size)*1)] leading-none;
+  /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
+  @apply text-[calc(var(--input-font-size)*1)];
 
-  &:hover, &:active, &:focus {
-    @apply opacity-80;
+  @apply border-transparent;
+  @apply bg-accent-light dark:bg-accent-dark;
+  @apply text-surface-light dark:text-surface-dark;
+
+  &[disabled] {
+    @apply bg-on-surface-light/20 dark:bg-on-surface-dark/20;
+    @apply text-surface-light dark:text-surface-dark;
+  }
+
+  &:not([disabled]) {
+    @apply cursor-pointer;
+
+    &:hover, &:active, &:focus {
+      @apply bg-accent-high-light dark:bg-accent-high-dark;
+      @apply text-surface-high-light dark:text-surface-high-dark;
+    }
   }
 }
 
 a {
-  @apply outline-0 cursor-pointer transition-colors;
+  @apply outline-0 cursor-pointer underline transition-colors;
   @apply text-accent-high-light dark:text-accent-high-dark;
 
   &:hover, &:active, &:focus {
