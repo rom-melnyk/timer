@@ -1,9 +1,9 @@
 ﻿<template>
   <div class="progress-done">
     <span class="time">{{ time.h }}</span>
-    <span class="separator">:</span>
+    <span class="separator w-4">:</span>
     <span class="time">{{ time.m }}</span>
-    <span class="separator">:</span>
+    <span class="separator w-4">:</span>
     <span class="time">{{ time.s }}</span>
 
     <span class="elapsed">elapsed</span>

@@ -1,5 +1,23 @@
 ﻿.hms-input {
+  /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
+  @apply text-[calc(var(--input-font-size)*1)];
+
   * {
     @apply align-middle;
+  }
+}
+
+.previous-values {
+  * {
+    @apply inline-block text-center align-middle leading-none;
+  }
+
+  .as-time {
+    @apply w-[1.25em];
+  }
+
+  .as-separator {
+    @apply w-[.4em] text-[.75em];
+    @apply text-on-accent-light/50 dark:text-on-accent-dark/50;
   }
 }

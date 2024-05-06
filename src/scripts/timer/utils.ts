@@ -23,3 +23,21 @@ export function formatHms({ h, m, s }: HMS): HmsString {
   }
 }
 
+const clamps: { [key in keyof HMS]: { min: number, max: number } } = {
+  h: { min: 0, max: 99 },
+  m: { min: 0, max: 59 },
+  s: { min: 0, max: 59 },
+}
+
+export function validateAndFixHMS(key: keyof HMS, value: number) {
+  return Math.max(
+    clamps[key].min,
+    Math.min(clamps[key].max, value)
+  )
+}
+
+export function areHmsEqual(hms1: HMS, hms2: HMS) {
+  return hms1.h === hms2.h
+    && hms1.m === hms2.m
+    && hms1.s === hms2.s
+}

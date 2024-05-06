@@ -46,11 +46,19 @@ button {
   }
 }
 
-a {
-  @apply outline-0 cursor-pointer underline transition-colors;
+a, .link-like {
+  @apply outline-0 cursor-pointer transition-colors;
   @apply text-accent-light dark:text-accent-dark;
+
+  &:is(a) {
+    @apply underline;
+  }
 
   &:hover, &:active, &:focus {
     @apply text-accent-high-light dark:text-accent-high-dark;
+  }
+
+  & > .keep-undecorated {
+    color: currentColor;
   }
 }

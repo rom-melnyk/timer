@@ -7,8 +7,18 @@
       <span class="separator w-8">:</span>
       <input type="number" min="0" maxlength="59" v-model="hms.s">
     </div>
-    <div class="previous-values">
-      <span v-for="t in previousValues">t</span>
+    <div class="previous-values mt-8">
+      <i class="icon-history"></i>
+      <template v-if="previousValues.length > 0">
+        <span v-for="(hms, i) in previousValues" :key="`timers-${i}`" class="link-like ml-4" @click="applyPreviousValue(hms.hms)">
+          <span class="as-time">{{ hms.asString.h }}</span>
+          <span class="as-separator">:</span>
+          <span class="as-time">{{ hms.asString.m }}</span>
+          <span class="as-separator">:</span>
+          <span class="as-time">{{ hms.asString.s }}</span>
+        </span>
+      </template>
+      <span v-else class="ml-4">&hellip;</span>
     </div>
   </div>
 </template>
@@ -16,6 +26,8 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from "vue"
 import { type HMS } from "../timer/timer"
+import { formatHms, validateAndFixHMS } from "../timer/utils"
+import { timerStorage } from "../timer/timer-storage"
 
 export default defineComponent({
   name: "TimeInput",
@@ -34,21 +46,26 @@ export default defineComponent({
     const currentHms: HMS = { ...props.modelValue }
     const hms = reactive<HMS>({ ...props.modelValue })
 
-    // TODO
-    const previousValues = ref([] as string[])
+    const previousValues = ref(
+      timerStorage
+        .get()
+        .map(v => ({ hms: v, asString: formatHms(v) }))
+    )
 
-    const clamps: { [key in keyof HMS]: { min: number, max: number } } = {
-      h: { min: 0, max: 99 },
-      m: { min: 0, max: 59 },
-      s: { min: 0, max: 59 },
+    function applyPreviousValue(newHms: HMS) {
+      currentHms.h = newHms.h
+      currentHms.m = newHms.m
+      currentHms.s = newHms.s
+      hms.h = newHms.h
+      hms.m = newHms.m
+      hms.s = newHms.s
+
+      emit("update:modelValue", { ...currentHms })
     }
+
     ;(["h", "m", "s"] as Array<keyof HMS>).forEach(key => {
       watch(() => hms[key], val => {
-        const clearValue = Math.max(
-          clamps[key].min,
-          Math.min(clamps[key].max, val)
-        )
-
+        const clearValue = validateAndFixHMS(key, val)
         if (clearValue !== val) hms[key] = currentHms[key]
         else if (currentHms[key] !== val) {
           currentHms[key] = val
@@ -60,6 +77,7 @@ export default defineComponent({
     return {
       hms,
       previousValues,
+      applyPreviousValue,
     }
   }
 })

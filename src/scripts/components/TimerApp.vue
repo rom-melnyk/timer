@@ -23,7 +23,6 @@
         <ProgressDone />
         <div class="controls">
           <button @click="resetTimer"><i class="icon-ok"></i></button>
-          <!-- TODO 🔁 -->
         </div>
       </template>
     </main>
@@ -39,6 +38,7 @@ import ProgressRunning from "./ProgressRunning.vue"
 import ProgressDone from "./ProgressDone.vue"
 import AppFooter from "./AppFooter.vue"
 import { type HMS, timer } from "../timer/timer"
+import { timerStorage } from "../timer/timer-storage"
 
 type States = "Idle" | "Running" | "Paused" | "Done"
 
@@ -52,7 +52,10 @@ export default defineComponent({
     const canStart = computed(() => hms.value.h > 0 || hms.value.m > 0 || hms.value.s > 0)
 
     function startTimer() {
-      if (!canStart) return
+      if (!canStart.value) return
+
+      timer.set(hms.value)
+      timerStorage.set(hms.value)
       timer.start(() => state.value = "Done")
       state.value = "Running"
     }
@@ -79,8 +82,6 @@ export default defineComponent({
         case "Done": return resetTimer()
       }
     }
-
-    watch(hms, newHms => timer.set(newHms), { immediate: true })
 
     onMounted(() => window.addEventListener("keypress", listenToKeyboard))
     onUnmounted(() => window.removeEventListener("keypress", listenToKeyboard))

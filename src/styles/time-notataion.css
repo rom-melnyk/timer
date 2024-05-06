@@ -8,6 +8,6 @@
 }
 
 .separator {
-  @apply min-w-4 text-[calc(var(--input-font-size)*.5)];
+  @apply text-[.5em];
   @apply text-on-accent-light/50 dark:text-on-accent-dark/50;
 }
