@@ -48,9 +48,9 @@ button {
 
 a {
   @apply outline-0 cursor-pointer underline transition-colors;
-  @apply text-accent-high-light dark:text-accent-high-dark;
+  @apply text-accent-light dark:text-accent-dark;
 
   &:hover, &:active, &:focus {
-    @apply text-accent-light dark:text-accent-dark;
+    @apply text-accent-high-light dark:text-accent-high-dark;
   }
 }
