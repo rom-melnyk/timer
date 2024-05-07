@@ -22,10 +22,4 @@
 
 .progress-done {
   @apply border-2 rounded-xl border-on-accent-light/50 dark:border-on-accent-dark/50;
-
-  .elapsed {
-    @apply absolute bottom-1 right-2 lg:bottom-3 lg:right-4;
-    @apply text-base leading-none;
-    @apply text-on-accent-light/50 dark:text-on-accent-dark/50;
-  }
 }

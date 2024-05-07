@@ -74,6 +74,8 @@ export default defineComponent({
       })
     })
 
+    document.title = "Timer"
+
     return {
       hms,
       previousValues,

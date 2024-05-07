@@ -45,7 +45,6 @@ export default defineComponent({
   components: { AppFooter, ProgressDone, ProgressRunning, TimeInput },
   setup() {
     const hms = ref<HMS>({ h: 0, m: 0, s: 0 })
-
     const canStart = computed(() => hms.value.h > 0 || hms.value.m > 0 || hms.value.s > 0)
 
     function startTimer() {

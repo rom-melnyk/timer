@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue"
+import { computed, defineComponent, watch } from "vue";
 import { timer } from "../timer/timer"
 import { formatHms, secondsToHms } from "../timer/utils"
 
@@ -19,6 +19,15 @@ export default defineComponent({
   setup() {
     const time = computed(() => formatHms(secondsToHms(timer.remainedSeconds.value)))
     const progress = computed(() => Math.floor((timer.progress.value) * 100 * 100) / 100)
+
+    watch(time, ({ h, m, s }) => {
+      const chunks = [h, m, s]
+      let i = 0
+      while (i < chunks.length && chunks[i] === "00") i++
+
+      document.title = chunks.slice(i).join(":")
+    })
+
     return { time, progress }
   }
 })

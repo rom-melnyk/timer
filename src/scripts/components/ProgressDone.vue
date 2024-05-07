@@ -5,8 +5,6 @@
     <span class="time">{{ time.m }}</span>
     <span class="separator w-4">:</span>
     <span class="time">{{ time.s }}</span>
-
-    <span class="elapsed">elapsed</span>
   </div>
 </template>
 
@@ -18,7 +16,10 @@ import { formatHms } from "../timer/utils"
 export default defineComponent({
   name: "ProgressDone",
   setup() {
-    return { time: formatHms(timer.durationHms) }
+    const time = formatHms(timer.durationHms)
+    document.title = `✔️ ${time.h}:${time.m}:${time.s}`
+
+    return { time }
   }
 })
 </script>
