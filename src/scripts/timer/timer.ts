@@ -4,16 +4,16 @@ import { hmsToSeconds } from "./utils"
 export type HMS = { h: number, m: number, s: number }
 export type HmsString = { h: string, m: string, s: string }
 
-const dummyFn = () => {}
+type States = "Idle" | "Running" | "Paused" | "Done"
 
 class Timer {
   private _timerId = null as NodeJS.Timer | null
   private _durationSeconds = 0
   private _durationHms: HMS | null = null
-  private _onDone = dummyFn
 
   readonly remainedSeconds = ref(0)
   readonly progress = computed(() => this.remainedSeconds.value / this._durationSeconds)
+  readonly state = ref<States>("Idle")
   get durationHms() { return this._durationHms }
 
   constructor() {
@@ -29,13 +29,12 @@ class Timer {
     this._durationHms = hms
   }
 
-  start(onDone?: () => void) {
+  start() {
     if (this._timerId) return
     if (this._durationSeconds <= 0) return
 
-
     this.remainedSeconds.value = this._durationSeconds
-    this._onDone = onDone ?? dummyFn
+    this.state.value = "Running"
 
     this._timerId = setInterval(this._tick, 1000)
   }
@@ -45,17 +44,21 @@ class Timer {
 
     clearInterval(this._timerId)
     this._timerId = null
+    this.state.value = "Paused"
   }
 
   resume() {
-    if (!this._timerId) this._timerId = setInterval(this._tick, 1000)
+    if (this._timerId) return
+
+    this._timerId = setInterval(this._tick, 1000);
+    this.state.value = "Running"
   }
 
   reset() {
     this.pause()
 
     this.remainedSeconds.value = 0
-    this._onDone = dummyFn
+    this.state.value = "Idle"
   }
 
   private _tick() {
@@ -63,7 +66,7 @@ class Timer {
     if (this.remainedSeconds.value <= 0) {
       this.pause()
       this.remainedSeconds.value = 0
-      this._onDone()
+      this.state.value = "Done"
     }
   }
 }

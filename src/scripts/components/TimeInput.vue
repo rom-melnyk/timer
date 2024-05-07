@@ -1,11 +1,11 @@
 ﻿<template>
   <div class="time-input">
     <div class="hms-input whitespace-nowrap text-center">
-      <input type="number" min="0" maxlength="99" v-model="hms.h">
+      <input type="number" min="0" maxlength="99" v-model="hms.h" value="00">
       <span class="separator w-8">:</span>
-      <input type="number" min="0" maxlength="59" v-model="hms.m">
+      <input type="number" min="0" maxlength="59" v-model="hms.m" value="00">
       <span class="separator w-8">:</span>
-      <input type="number" min="0" maxlength="59" v-model="hms.s">
+      <input type="number" min="0" maxlength="59" v-model="hms.s" value="00">
     </div>
     <div class="previous-values mt-8">
       <i class="icon-history"></i>

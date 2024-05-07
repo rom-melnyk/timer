@@ -4,13 +4,12 @@
 
   @apply h-[var(--input-size)] aspect-square;
   @apply leading-[var(--input-size)] text-center font-bold;
+  /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
+  @apply text-[calc(var(--input-font-size)*1)];
 }
 
 input {
-  @apply cursor-pointer;
-
-  /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
-  @apply text-[calc(var(--input-font-size)*1)] font-bold;
+  @apply cursor-pointer font-bold;
 
   @apply bg-transparent;
   @apply text-accent-light dark:text-accent-dark;
@@ -24,9 +23,6 @@ input {
 }
 
 button {
-  /* The `font-size: calc(var() * 1)` required; otherwise does not work. */
-  @apply text-[calc(var(--input-font-size)*1)];
-
   @apply border-transparent;
   @apply bg-accent-light dark:bg-accent-dark;
   @apply text-surface-light dark:text-surface-dark;
