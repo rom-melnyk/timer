@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent, onUnmounted } from "vue"
 import { timer } from "../timer/timer"
 import { formatHms } from "../timer/utils"
-import { favicon } from "../timer/favicon"
+import { favicon } from "../favicon"
 
 export default defineComponent({
   name: "ProgressDone",
@@ -21,6 +21,14 @@ export default defineComponent({
 
     favicon.setDoneIcon()
     document.title = `Timer's up: ${time.h}:${time.m}:${time.s}`
+
+    // TODO Set actual path
+    const audio = new Audio(`${publicPath}/assets/audio/alarm.wav`)
+    audio.loop = true
+    audio.currentTime = 0
+    audio.play()
+
+    onUnmounted(() => audio.pause())
 
     return { time }
   }

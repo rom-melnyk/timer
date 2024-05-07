@@ -28,7 +28,7 @@ import { defineComponent, reactive, ref, watch } from "vue"
 import { type HMS } from "../timer/timer"
 import { formatHms, validateAndFixHMS } from "../timer/utils"
 import { timerStorage } from "../timer/timer-storage"
-import { favicon } from "../timer/favicon"
+import { favicon } from "../favicon"
 
 export default defineComponent({
   name: "TimeInput",

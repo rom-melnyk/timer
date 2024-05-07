@@ -10,10 +10,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, watch } from "vue";
+import { computed, defineComponent, watch } from "vue"
 import { timer } from "../timer/timer"
 import { formatHms, secondsToHms } from "../timer/utils"
-import { favicon } from "../timer/favicon"
+import { favicon } from "../favicon"
 
 export default defineComponent({
   name: "ProgressRunning",

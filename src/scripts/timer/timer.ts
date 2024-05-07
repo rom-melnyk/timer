@@ -50,7 +50,7 @@ class Timer {
   resume() {
     if (this._timerId) return
 
-    this._timerId = setInterval(this._tick, 1000);
+    this._timerId = setInterval(this._tick, 1000)
     this.state.value = "Running"
   }
 
