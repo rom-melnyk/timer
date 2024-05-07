@@ -13,6 +13,7 @@
 import { computed, defineComponent, watch } from "vue";
 import { timer } from "../timer/timer"
 import { formatHms, secondsToHms } from "../timer/utils"
+import { favicon } from "../timer/favicon"
 
 export default defineComponent({
   name: "ProgressRunning",
@@ -26,7 +27,13 @@ export default defineComponent({
       while (i < chunks.length && chunks[i] === "00") i++
 
       document.title = chunks.slice(i).join(":")
-    })
+    }, { immediate: true })
+
+    watch(timer.state, state => {
+      if (state === "Running") favicon.setRunningIcon()
+      else favicon.setPauseIcon()
+    }, { immediate: true })
+
 
     return { time, progress }
   }

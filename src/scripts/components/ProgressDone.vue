@@ -12,12 +12,15 @@
 import { defineComponent } from "vue"
 import { timer } from "../timer/timer"
 import { formatHms } from "../timer/utils"
+import { favicon } from "../timer/favicon"
 
 export default defineComponent({
   name: "ProgressDone",
   setup() {
     const time = formatHms(timer.durationHms)
-    document.title = `✔️ ${time.h}:${time.m}:${time.s}`
+
+    favicon.setDoneIcon()
+    document.title = `Timer's up: ${time.h}:${time.m}:${time.s}`
 
     return { time }
   }
