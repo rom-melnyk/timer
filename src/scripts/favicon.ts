@@ -118,7 +118,7 @@ class Favicon {
     this.stopAnimation()
 
     let opacity = .5
-    let opaStep = .025
+    let opaStep = .05
 
     this.animationId = setInterval(() => {
       opacity += opaStep

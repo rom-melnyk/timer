@@ -22,13 +22,19 @@ export default defineComponent({
     favicon.setDoneIcon()
     document.title = `Timer's up: ${time.h}:${time.m}:${time.s}`
 
-    // TODO Set actual path
-    const audio = new Audio(`${publicPath}/assets/audio/alarm.wav`)
-    audio.loop = true
-    audio.currentTime = 0
-    audio.play()
+    // The content is placed into the 📂 dist/
+    // See the `parcel-reporter-static-files-copy` plugin and the `package.json#staticFiles`
+    const audio = new Audio("./acoustic-arpeggio.wav")
 
-    onUnmounted(() => audio.pause())
+    function play() {
+      audio.currentTime = 0
+      audio.play()
+    }
+
+    play()
+    const timerId = setInterval(play, 10 * 1000)
+
+    onUnmounted(() => clearInterval(timerId) && audio.pause())
 
     return { time }
   }
