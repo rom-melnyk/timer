@@ -4,7 +4,7 @@
   "description": "Simple timer",
   "scripts": {
     "start": "rm -fr ./dist && parcel serve --port 8080 --no-cache --no-autoinstall ./src/index.html",
-    "dist": "rm -fr ./dist && parcel build --dist-dir ./dist --no-cache --no-source-maps --no-content-hash --detailed-report 3 ./src/index.html",
+    "dist": "rm -fr ./dist && parcel build --dist-dir ./dist --public-url . --no-cache --no-source-maps --no-content-hash --detailed-report 3 ./src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
